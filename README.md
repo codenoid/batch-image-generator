@@ -14,4 +14,8 @@ Generate dynamic image content based on a template image and a CSV file.
 - [ ] More control of rectangle position
 - [ ] More Interactive Progress
 
+## Development
+
+Please visit [Wails Getting Started](https://wails.io/docs/gettingstarted/installation) to setup the development environment.
+
 Made with [Wails](https://wails.app/) and [Svelte](https://svelte.dev/).
