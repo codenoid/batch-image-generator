@@ -10,6 +10,7 @@ Generate dynamic image content based on a template image and a CSV file.
 - [x] Transform to uppercase, QR Code, Avatar, Initial Avatar
 - [x] Text Alignment
 - [x] Text Color
+- [ ] File for Save/Load
 - [ ] More control of rectangle position
 - [ ] More Interactive Progress
 
