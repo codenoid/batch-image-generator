@@ -43,11 +43,7 @@ let templateBase64 = '';
 let customFont;
 let customFontFile = {};
 
-let fonts = [
-	"Arial", "Verdana", "Helvetica", "Tahoma", "Trebuchet MS",
-	"Times New Roman", "Georgia", "Garamond", "Courier New",
-	"Brush Script MT", "Lucida Sans", "Bookman"
-];
+let fonts = ["Arial"];
 
 let imageFileName = '';
 let csvFileName = '';
@@ -240,6 +236,30 @@ async function proceed() {
     return output;
 }
 
+function reset() {
+	// Here, you reset all your variables to their initial states
+	resultText = "Please enter your name below 👇";
+	name = '';
+	rectangles = [];
+	selectedRect = -1;
+	rectId = 0;
+	csvHeaders = [];
+	csvDelimiter = ",";
+	csvContent = '';
+	templateBase64 = '';
+	customFont = '';
+	customFontFile = {};
+	fonts = ["Arial"];
+	imageFileName = '';
+	csvFileName = '';
+	loading = false;
+	// Reload the canvas
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	if (img.src) {
+		context.drawImage(img, 0, 0, canvas.width, canvas.height);
+	}
+}
+
 </script>
 
 <div class="row">
@@ -271,6 +291,10 @@ async function proceed() {
 					{#if loading}<ProgressRing size={20}/>&nbsp;{/if}
 					{loading ? 'Processing...' : 'Proceed'}
 				</Button>
+				<br><br>
+				<Button variant="standard" style="width:100%;" on:click={reset}>
+					Reset
+				</Button>				  
 			</div>
 			<div class="six columns">
 				<label for="">Create New Placeholder</label>
@@ -332,7 +356,7 @@ async function proceed() {
 								<option value="">None</option>
 								<option value="uppercase">Uppercase</option>
 								<option value="qrcode">QR-Code</option>
-								<option value="barcode">Barcode</option>
+								<option value="avatar">Avatar</option>
 								<option value="initial-avatar">Initial Avatar</option>
 							</select>
 						</label>

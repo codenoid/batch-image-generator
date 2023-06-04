@@ -10,12 +10,16 @@ import (
 	"fmt"
 	"image"
 	"image/draw"
+	"image/png"
 	"io"
 	"log"
 	"strings"
 
+	"github.com/disintegration/imaging"
 	"github.com/fogleman/gg"
 	"github.com/golang/freetype/truetype"
+	avatar "github.com/holys/initials-avatar"
+	"github.com/o1egl/govatar"
 	"github.com/skip2/go-qrcode"
 )
 
@@ -142,6 +146,25 @@ func (a *App) Proceed(b64image string, placehldr string, csvData string) {
 						dc.DrawImage(qrImage, int(startX), int(startY))
 						dc.Pop()
 						continue
+					}
+				case "avatar":
+					// current gender are still static, this need to be fixed
+					if avtr, err := govatar.Generate(govatar.MALE); err == nil {
+						// Resize the image
+						resizedImg := imaging.Resize(avtr, int(ph.W), int(ph.W), imaging.Lanczos)
+
+						dc.DrawImage(resizedImg, int(startX), int(startY))
+						dc.Pop()
+						continue
+					}
+				case "initial-avatar":
+					a := avatar.New("")
+					if raw, err := a.DrawToBytes(content, int(ph.W), "png"); err == nil {
+						if img, perr := png.Decode(bytes.NewReader(raw)); perr == nil {
+							dc.DrawImage(img, int(startX), int(startY))
+							dc.Pop()
+							continue
+						}
 					}
 				}
 

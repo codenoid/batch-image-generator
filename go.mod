@@ -3,14 +3,18 @@ module changeme
 go 1.18
 
 require (
+	github.com/disintegration/imaging v1.6.2
 	github.com/fogleman/gg v1.3.0
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
+	github.com/holys/initials-avatar v0.0.0-20180809162153-a82edcad3408
+	github.com/o1egl/govatar v0.4.1
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/wailsapp/wails/v2 v2.5.1
 )
 
 require (
 	github.com/bep/debounce v1.2.1 // indirect
+	github.com/dchest/lru v0.0.0-20151022103600-d8fd1e40a385 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/google/uuid v1.1.2 // indirect
 	github.com/jchv/go-winloader v0.0.0-20210711035445-715c2860da7e // indirect
@@ -34,6 +38,7 @@ require (
 	golang.org/x/net v0.7.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/text v0.7.0 // indirect
+	stathat.com/c/consistent v1.0.0 // indirect
 )
 
 // replace github.com/wailsapp/wails/v2 v2.5.1 => C:\Users\jihan\go\pkg\mod
