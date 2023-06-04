@@ -14,6 +14,8 @@ import (
 	"io"
 	"log"
 	"os"
+	"os/exec"
+	"runtime"
 	"strings"
 
 	"github.com/disintegration/imaging"
@@ -59,6 +61,24 @@ type Placeholder struct {
 	TextAlign   string  `json:"textAlign"`
 	FontSize    float64 `json:"fontSize"`
 	Transform   string  `json:"transform"`
+}
+
+func (a *App) OpenBrowser(url string) {
+	var err error
+
+	switch runtime.GOOS {
+	case "linux":
+		err = exec.Command("xdg-open", url).Start()
+	case "windows":
+		err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
+	case "darwin":
+		err = exec.Command("open", url).Start()
+	default:
+		err = fmt.Errorf("unsupported platform")
+	}
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func (a *App) Proceed(b64image string, placehldr string, csvData string) string {

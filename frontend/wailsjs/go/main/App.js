@@ -6,6 +6,10 @@ export function Greet(arg1) {
   return window['go']['main']['App']['Greet'](arg1);
 }
 
+export function OpenBrowser(arg1) {
+  return window['go']['main']['App']['OpenBrowser'](arg1);
+}
+
 export function Proceed(arg1, arg2, arg3) {
   return window['go']['main']['App']['Proceed'](arg1, arg2, arg3);
 }

@@ -3,4 +3,6 @@
 
 export function Greet(arg1:string):Promise<string>;
 
+export function OpenBrowser(arg1:string):Promise<void>;
+
 export function Proceed(arg1:string,arg2:string,arg3:string):Promise<string>;
