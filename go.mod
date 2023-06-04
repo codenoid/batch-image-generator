@@ -7,6 +7,7 @@ require (
 	github.com/fogleman/gg v1.3.0
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/holys/initials-avatar v0.0.0-20180809162153-a82edcad3408
+	github.com/mitchellh/go-homedir v1.1.0
 	github.com/o1egl/govatar v0.4.1
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/wailsapp/wails/v2 v2.5.1

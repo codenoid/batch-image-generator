@@ -13,12 +13,14 @@ import (
 	"image/png"
 	"io"
 	"log"
+	"os"
 	"strings"
 
 	"github.com/disintegration/imaging"
 	"github.com/fogleman/gg"
 	"github.com/golang/freetype/truetype"
 	avatar "github.com/holys/initials-avatar"
+	"github.com/mitchellh/go-homedir"
 	"github.com/o1egl/govatar"
 	"github.com/skip2/go-qrcode"
 )
@@ -59,12 +61,12 @@ type Placeholder struct {
 	Transform   string  `json:"transform"`
 }
 
-func (a *App) Proceed(b64image string, placehldr string, csvData string) {
+func (a *App) Proceed(b64image string, placehldr string, csvData string) string {
 	reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(b64image))
 	m, _, err := image.Decode(reader)
 	if err != nil {
 		log.Println(err)
-		return
+		return err.Error()
 	}
 
 	// Load placeholders
@@ -77,6 +79,19 @@ func (a *App) Proceed(b64image string, placehldr string, csvData string) {
 	rowIndex := map[string]int{}
 	for i, h := range headers {
 		rowIndex[h] = i
+	}
+
+	// Save each image
+	home, err := homedir.Dir()
+	if err != nil {
+		log.Println(err)
+		return err.Error()
+	}
+	savePath := home + fmt.Sprintf("%sDocuments%sBatch Image Generator", string(os.PathSeparator), string(os.PathSeparator))
+	err = os.MkdirAll(savePath, os.ModePerm)
+	if err != nil {
+		log.Println(err)
+		return err.Error()
 	}
 
 	// counter for naming output images
@@ -174,8 +189,9 @@ func (a *App) Proceed(b64image string, placehldr string, csvData string) {
 			}
 		}
 
-		// Save each image
-		dc.SavePNG(fmt.Sprintf("out%d.png", counter))
+		dc.SavePNG(fmt.Sprintf("%s%sout%d.png", savePath, string(os.PathSeparator), counter))
 		counter++
 	}
+
+	return "Success, saved in " + savePath
 }

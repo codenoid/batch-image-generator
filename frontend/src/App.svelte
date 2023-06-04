@@ -57,7 +57,7 @@ function loadImage(e) {
 			canvas.height = this.height;
 			updateCanvas();
 		};
-		img.src = e.target.result;
+		img.src = e.target.result.toString();
 	};
 	imageFileName = e.target.files[0].name;
 	reader.readAsDataURL(e.target.files[0]);
@@ -66,8 +66,8 @@ function loadImage(e) {
 function loadCSV(e) {
     const reader = new FileReader();
     reader.onload = (e) => {
-        csvHeaders = e.target.result.split('\n')[0].split(csvDelimiter);
-        csvContent = e.target.result;  // Store the content
+        csvHeaders = e.target.result.toString().split('\n')[0].split(csvDelimiter);
+        csvContent = e.target.result.toString();  // Store the content
     };
     csvFileName = e.target.files[0].name;
     reader.readAsText(e.target.files[0]);
@@ -97,6 +97,14 @@ function loadFont(e) {
 
 onMount(() => {
 	context = canvas.getContext('2d');
+	// Manually disable pinch zoom!
+	document.addEventListener("wheel", event => {
+		const { ctrlKey } = event;
+		if (ctrlKey) {
+		event.preventDefault();
+		return
+		}
+	}, { passive: false });
 });
 
 function updateCanvas() {
@@ -226,9 +234,9 @@ async function proceed() {
 
 	loading = true;
 	try {
-		await Proceed(image, placeholder, csv);
+		const resp = await Proceed(image, placeholder, csv);
 		loading = false;
-		alert("Done!");
+		alert(resp);
 	} catch (e) {
 		alert("Error:" + e.message);
 	}
