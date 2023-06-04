@@ -6,8 +6,8 @@ import {
 } from 'svelte';
 import logo from './assets/images/logo-universal.png'
 import {
-	Greet,
-	Proceed
+	Proceed,
+	OpenBrowser
 } from '../wailsjs/go/main/App.js'
 import {
 	TextBox,
@@ -24,10 +24,6 @@ import "carbon-components-svelte/css/g80.css";
 
 let resultText = "Please enter your name below 👇"
 let name
-
-function greet() {
-	Greet(name).then(result => resultText = result)
-}
 
 let canvas;
 let context;
@@ -302,7 +298,12 @@ function reset() {
 				<br><br>
 				<Button variant="standard" style="width:100%;" on:click={reset}>
 					Reset
-				</Button>				  
+				</Button>
+				<br><br>
+				<div style="text-align: center;">
+					Rubi Jihantoro<br>
+					<Button variant="hyperlink" on:click={() => {OpenBrowser('https://github.com/codenoid/batch-image-generator/releases')}}>Check For Update</Button>
+				</div>			  
 			</div>
 			<div class="six columns">
 				<label for="">Create New Placeholder</label>
